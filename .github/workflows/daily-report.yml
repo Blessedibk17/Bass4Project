@@ -1,0 +1,27 @@
+name: Daily Maintenance Shift Report
+
+on:
+  schedule:
+    # This cron schedule runs every day at 8:30 AM UTC
+    # You can adjust the time as needed (e.g., 0 8 * * * for 8 AM UTC)
+    # cron-job.org uses your local timezone, GitHub Actions uses UTC.
+    - cron: '30 8 * * *' 
+  workflow_dispatch:
+    # Allows you to manually trigger the workflow from the GitHub UI
+
+jobs:
+  run_report:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Make HTTP Request to Base44 Function
+      run: |
+        # Replace this URL with your actual Base44 Function URL
+        # It's good practice to store the URL as a GitHub Secret if it were sensitive
+        # but for this public function, direct use is fine.
+        YOUR_BASE44_FUNCTION_URL="https://mr356-mobile-app-pop-ed2b8dd9.base44.app/api/apps/687510fbc6ec25fbed2b8dd9/functions/dailyReportsScheduler?action=run"
+        
+        curl -X POST -s -o /dev/null -w "%{http_code}\n" "${YOUR_BASE44_FUNCTION_URL}"
+        # -X POST sends a POST request (which triggers the function's main logic)
+        # -s silences progress output
+        # -o /dev/null discards the response body
+        # -w "%{http_code}\n" prints the HTTP status code
