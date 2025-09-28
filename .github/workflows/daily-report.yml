@@ -5,7 +5,7 @@ on:
     # This cron schedule runs every day at 8:30 AM UTC
     # You can adjust the time as needed (e.g., 0 8 * * * for 8 AM UTC)
     # cron-job.org uses your local timezone, GitHub Actions uses UTC.
-    - cron: '30 8 * * *' 
+   - cron: '30 7 * * *'  
   workflow_dispatch:
     # Allows you to manually trigger the workflow from the GitHub UI
 
